@@ -1,5 +1,4 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,122 +8,88 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
 
-    <title>{% block title %}
-      
-    {% endblock title %}</title>
+    <title>{% block HeadTitle %} WaiterShop {% endblock HeadTitle %}</title>
 
     <!-- Bootstrap core CSS -->
     <link href="{% static "shop/vendor/bootstrap/css/bootstrap.min.css" %}" rel="stylesheet">
+<!--
 
+TemplateMo 546 Sixteen Clothing
+
+https://templatemo.com/tm-546-sixteen-clothing
+
+-->
 
     <!-- Additional CSS Files -->
     <link rel="stylesheet" href="{% static "shop/assets/css/fontawesome.css" %}">
-    <link rel="stylesheet" href="{% static "shop/assets/css/tooplate-main.css" %}">
+    <link rel="stylesheet" href="{% static "shop/assets/css/templatemo-sixteen.css" %}">
     <link rel="stylesheet" href="{% static "shop/assets/css/owl.css" %}">
-<!--
-Tooplate 2114 Pixie
-https://www.tooplate.com/view/2114-pixie
--->
+    <link rel="stylesheet" href="{% static "shop/assets/css/rtl.css" %}">
+
+
   </head>
 
   <body>
-    
-    <!-- Pre Header -->
-    <div id="pre-header">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-            <span>Suspendisse laoreet magna vel diam lobortis imperdiet</span>
+
+    <!-- ***** Preloader Start ***** -->
+    <!-- <div id="preloader">
+        <div class="jumper">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>   -->
+    <!-- ***** Preloader End ***** -->
+
+    <!-- Header -->
+    <header class="">
+      <nav class="navbar navbar-expand-lg">
+        <div class="container">
+          <a class="navbar-brand" href="{% url 'core:home' %}"><h2>Sixteen <em>Clothing</em></h2></a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item active">
+                <a class="nav-link" href="{% url 'core:home' %}">Home
+                  <span class="sr-only">(current)</span>
+                </a>
+              </li> 
+              <li class="nav-item">
+                <a class="nav-link" href="products.html">Our Products</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="about.html">About Us</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="contact.html">Contact Us</a>
+              </li>
+            </ul>
           </div>
         </div>
-      </div>
-    </div>
-
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
-      <div class="container">
-        <a class="navbar-brand" href="#"><img src="{% static "shop/assets/images/header-logo.png" %}" alt=""></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="index.html">Home
-                <span class="sr-only">(current)</span>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="products.html">Products</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="about.html">About Us</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="contact.html">Contact Us</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+      </nav>
+    </header>
 
     <!-- Page Content -->
-    {% block content %}   
-    {% endblock content %}
-    <!-- Footer Starts Here -->
-    <hr>
-    <div class="footer">
+    {% block content %}{% endblock content %}
+    <!-- End Page Content -->
+    
+    <footer>
       <div class="container">
         <div class="row">
           <div class="col-md-12">
-            <div class="logo">
-              <img src="{% static "shop/assets/images/header-logo.png" %}" alt="">
-            </div>
-          </div>
-          <div class="col-md-12">
-            <div class="footer-menu">
-              <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Help</a></li>
-                <li><a href="#">Privacy Policy</a></li>
-                <li><a href="#">How It Works ?</a></li>
-                <li><a href="#">Contact Us</a></li>
-              </ul>
-            </div>
-          </div>
-          <div class="col-md-12">
-            <div class="social-icons">
-              <ul>
-                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                <li><a href="#"><i class="fa fa-rss"></i></a></li>
-              </ul>
+            <div class="inner-content">
+              <p>Copyright &copy; 2020 Sixteen Clothing Co., Ltd.
+            
+            - Design: <a rel="nofollow noopener" href="https://templatemo.com" target="_blank">TemplateMo</a></p>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <!-- Footer Ends Here -->
-
-
-    <!-- Sub Footer Starts Here -->
-    <div class="sub-footer">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="copyright-text">
-              <p>Copyright &copy; 2019 Company Name 
-                
-                - Design: <a rel="nofollow" href="https://www.facebook.com/tooplate">Tooplate</a></p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- Sub Footer Ends Here -->
+    </footer>
 
 
     <!-- Bootstrap core JavaScript -->
@@ -135,6 +100,9 @@ https://www.tooplate.com/view/2114-pixie
     <!-- Additional Scripts -->
     <script src="{% static "shop/assets/js/custom.js" %}"></script>
     <script src="{% static "shop/assets/js/owl.js" %}"></script>
+    <script src="{% static "shop/assets/js/slick.js" %}"></script>
+    <script src="{% static "shop/assets/js/isotope.js" %}"></script>
+    <script src="{% static "shop/assets/js/accordions.js" %}"></script>
 
 
     <script language = "text/Javascript"> 
