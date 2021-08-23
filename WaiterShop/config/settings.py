@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'crispy_forms',
 
     'main_account.apps.MainAccountConfig',
+    'core.apps.CoreConfig',
 ]
 
 SITE_ID = 1
