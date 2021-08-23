@@ -1,0 +1,60 @@
+{% extends 'shared/base.html' %}
+{% block content %}
+<main>
+    <div class="container">
+
+    <div class="table-responsive text-nowrap">
+    <h2>Order Summary</h2>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Item title</th>
+            <th scope="col">Price</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Total Item Price</th>
+        </tr>
+        </thead>
+        <tbody>
+        
+        <tr>
+            <th scope="row">1</th>
+            <td>A shirt</td>
+            <td>30.0</td>
+            <td>
+                <a href="/remove-item-from-cart/shirt/"><i class="fas fa-minus mr-2"></i></a>
+                1
+                <a href="/add-to-cart/shirt/"><i class="fas fa-plus ml-2"></i></a>
+            </td>
+            <td>
+            
+                $20.0
+                <span class="badge badge-primary">Saving $10.0</span>
+            
+            <a style="color: red;" href="/remove-from-cart/shirt/">
+                <i class="fas fa-trash float-right"></i>
+            </a>
+            </td>
+        </tr>
+        
+        
+        
+        <tr>
+            <td colspan="4"><b>Order Total</b></td>
+            <td><b>$20.0</b></td>
+        </tr>
+        <tr>
+            <td colspan="5">
+            <a class="btn btn-warning float-right ml-2 waves-effect waves-light" href="/checkout/">Proceed to checkout</a>
+            <a class="btn btn-primary float-right waves-effect waves-light" href="/">Continue shopping</a>
+            </td>
+        </tr>
+        
+        </tbody>
+    </table>
+
+    </div>
+
+    </div>
+</main>
+{% endblock content %}

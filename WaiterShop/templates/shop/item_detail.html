@@ -35,7 +35,10 @@
             <form action="" method="get">
               <label for="quantity">Quantity:</label>
               <input name="quantity" type="quantity" class="quantity-text" id="quantity" onfocus="if(this.value == '1') { this.value = ''; }" onblur="if(this.value == '') { this.value = '1';}" value="1">
-              <input type="submit" class="button" value="Order Now!">
+              <a href="{{ object.get_add_to_cart_url }}" class="btn btn-primary btn-md my-0 p">
+                Add to cart
+                <i class="fa fa-shopping-cart ml-1"></i>
+              </a>
             </form>
             <div class="down-content">
               <div class="categories">
