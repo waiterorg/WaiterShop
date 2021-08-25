@@ -41,7 +41,7 @@
             <div class="product-item">
               <a href="{% url 'core:item_detail' item.slug %}"><img src="{{ item.image.url }}" class="" alt=""></a>
               <div class="down-content">
-                <a href="#"><h4>{{ item.title }}</h4></a>
+                <a href="{% url 'core:item_detail' item.slug %}"><h4>{{ item.title }}</h4></a>
                 <h6>${{ item.price }}</h6>
                 <p>{{ item.description }}</p>
                 <ul class="stars">
