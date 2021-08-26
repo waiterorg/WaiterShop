@@ -12,8 +12,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView, DetailView, View
 from django.utils import timezone
-from .models import Item, Order, OrderItem, Address, Coupon, UserProfile, Payment
-from .forms import CheckoutForm, CouponForm, PaymentForm
+from .models import Item, Order, OrderItem, Address, Coupon, UserProfile, Payment, Refund
+from .forms import CheckoutForm, CouponForm, PaymentForm, RefundForm
 
 # Create your views here.
 def create_ref_code():
@@ -320,3 +320,36 @@ def remove_single_item_from_cart(request, slug):
         return redirect("core:product", slug=slug)
 
 
+class RequestRefundView(View):
+    def get(self, *args, **kwargs):
+        form = RefundForm()
+        context = {
+            'form': form
+        }
+        return render(self.request, "shop/request_refund.html", context)
+
+    def post(self, *args, **kwargs):
+        form = RefundForm(self.request.POST)
+        if form.is_valid():
+            ref_code = form.cleaned_data.get('ref_code')
+            message = form.cleaned_data.get('message')
+            email = form.cleaned_data.get('email')
+            # edit the order
+            try:
+                order = Order.objects.get(ref_code=ref_code)
+                order.refund_requested = True
+                order.save()
+
+                # store the refund
+                refund = Refund()
+                refund.order = order
+                refund.reason = message
+                refund.email = email
+                refund.save()
+
+                messages.info(self.request, "Your request was received.")
+                return redirect("core:request-refund")
+
+            except ObjectDoesNotExist:
+                messages.info(self.request, "This order does not exist.")
+                return redirect("core:request-refund")
