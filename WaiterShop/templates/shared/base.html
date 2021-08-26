@@ -68,13 +68,13 @@ https://templatemo.com/tm-546-sixteen-clothing
           </button>
           <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
-              <li class="nav-item active">
+              <li class="nav-item{% if request.path == '/' %} active{% endif %}">
                 <a class="nav-link" href="{% url 'core:home' %}">Home
                   <span class="sr-only">(current)</span>
                 </a>
               </li> 
               <li class="nav-item">
-                <a class="nav-link" href="{{ request.path }}">Our Products</a>
+                <a class="nav-link" href="#">Our Products</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="about.html">About Us</a>
