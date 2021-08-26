@@ -16,58 +16,50 @@
           <div class="card">
 
             <!--Card content-->
-            <form method="POST" class="card-body" >
-                {% csrf_token %}
+            <form method="POST" class="card-body">
+              {% csrf_token %}
 
-            <div class='hideable_shipping_form'>
-              <!--address-->
-              <div class="md-form mb-5">
-                <label for="shipping_address" class="">Address</label>
-                <input type="text" id="shipping_address" name='shipping_address' class="form-control" placeholder="1234 Main St">
-              </div>
+              <h3>Shipping address</h3>
 
-              <!--address-2-->
-              <div class="md-form mb-5">
-                <label for="shipping_address2" class="">Address 2 (optional)</label>
-                <input type="text" id="shipping_address2" name='shipping_address2' class="form-control" placeholder="Apartment or suite">
-              </div>
+              <div class='hideable_shipping_form'>
 
-              <!--Grid row-->
-              <div class="row">
+                <div class="md-form mb-5">
+                  <input type='text' placeholder='1234 Main St' id='shipping_address' name='shipping_address' class='form-control' />
+                  <label for="shipping_address" class="">Address</label>
+                </div>
 
-                <!--Grid column-->
-                <div class="col-lg-4 col-md-12 mb-4">
-                  <label for="shipping_country">Country</label>
+                <div class="md-form mb-5">
+                  <input type='text' placeholder='Apartment or suite' id='shipping_address2' name='shipping_address2' class='form-control' />
+                  <label for="shipping_address2" class="">Address 2 (optional)</label>
+                </div>
+
+                <div class="row">
+                  <div class="col-lg-4 col-md-12 mb-4">
+                    <label for="country">Country</label>
                     {{ form.shipping_country }}
-                  <div class="invalid-feedback">
-                    Please select a valid country.
+                    <div class="invalid-feedback">
+                      Please select a valid country.
+                    </div>
                   </div>
-
+                  <div class="col-lg-4 col-md-6 mb-4">
+                    <label for="shipping_zip">Zip</label>
+                    <input type='text' placeholder='Zip code' id='shipping_zip' name='shipping_zip' class='form-control' />
+                    <div class="invalid-feedback">
+                      Zip code required.
+                    </div>
+                  </div>
                 </div>
 
-                <!--Grid column-->
-                <div class="col-lg-4 col-md-6 mb-4">
-
-                  <label for="shipping_zip">Zip</label>
-                  <input type="text" class="form-control" id="shipping_zip" name='shipping_zip' placeholder="" required="">
-                  <div class="invalid-feedback">
-                    Zip code required.
-                  </div>
-
+                <div class="custom-control custom-checkbox">
+                  <input type="checkbox" class="custom-control-input" name="same_billing_address" id="same_billing_address">
+                  <label class="custom-control-label" for="same_billing_address">Billing address is the same as my shipping address</label>
                 </div>
-                <!--Grid column-->
+                <div class="custom-control custom-checkbox">
+                  <input type="checkbox" class="custom-control-input" name="set_default_shipping" id="set_default_shipping">
+                  <label class="custom-control-label" for="set_default_shipping">Save as default shipping address</label>
+                </div>
 
               </div>
-              <!--Grid row-->
-
-              <hr>
-
-
-              <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" id="set_default_shipping" name="set_default_shipping">
-                <label class="custom-control-label" for="set_default_shipping">Save this information for next time</label>
-              </div>
-            </div>
 
               {% if default_shipping_address %}
               <div class="custom-control custom-checkbox">
@@ -77,7 +69,7 @@
               {% endif %}
 
               <hr>
-              
+
               <h3>Payment option</h3>
 
               <div class="d-block my-3">
@@ -88,10 +80,12 @@
                 </div>
                 {% endfor %}
               </div>
+
               <hr class="mb-4">
               <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
 
             </form>
+
 
           </div>
           <!--/.Card-->

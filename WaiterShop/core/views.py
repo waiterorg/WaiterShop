@@ -1,3 +1,8 @@
+import random
+import string
+
+import stripe
+from django.conf import settings
 from django.shortcuts import render, get_object_or_404
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib import messages
@@ -7,10 +12,12 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView, DetailView, View
 from django.utils import timezone
-from .models import Item, Order, OrderItem, Address, Coupon
-from .forms import CheckoutForm, CouponForm
+from .models import Item, Order, OrderItem, Address, Coupon, UserProfile, Payment
+from .forms import CheckoutForm, CouponForm, PaymentForm
 
 # Create your views here.
+def create_ref_code():
+    return ''.join(random.choices(string.ascii_lowercase + string.digits, k=20))
 
 def is_valid_form(values):
     valid = True
@@ -124,9 +131,9 @@ class CheckoutView(LoginRequiredMixin,View):
                 payment_option = form.cleaned_data.get('payment_option')
 
                 if payment_option == 'S':
-                    return redirect('/')
+                    return redirect('core:payment', payment_option='stripe')
                 elif payment_option == 'P':
-                    return redirect('/')
+                    return redirect('core:payment', payment_option='paypal')
                 else:
                     messages.warning(
                         self.request, "Invalid payment option selected")
@@ -145,7 +152,7 @@ def get_coupon(request, code):
         return redirect("core:checkout")
 
 
-class AddCouponView(View):
+class AddCouponView(LoginRequiredMixin,View):
     def post(self, *args, **kwargs):
         form = CouponForm(self.request.POST or None)
         if form.is_valid():
@@ -160,6 +167,70 @@ class AddCouponView(View):
             except ObjectDoesNotExist:
                 messages.info(self.request, "You do not have an active order")
                 return redirect("core:checkout")
+
+
+
+class PaymentView(LoginRequiredMixin,View):
+    def get(self, *args, **kwargs):
+            
+        try:
+            order = Order.objects.get(user=self.request.user, ordered=False)
+            if order.shipping_address:
+                context = {
+                    'order': order,
+                    'DISPLAY_COUPON_FORM': False,
+                }
+                return render(self.request, "shop/payment.html", context)
+            else:
+                messages.warning(
+                    self.request, "You have not added a shipping adress")
+                return redirect("core:checkout")
+        except:
+            messages.warning(self.request, "You have not order!")
+            return redirect("/")
+    def post(self, *args, **kwargs):
+        order = Order.objects.get(user=self.request.user, ordered=False)
+        form = PaymentForm(self.request.POST)
+        if form.is_valid():
+            token = form.cleaned_data.get('stripeToken')
+            save = form.cleaned_data.get('save')
+            use_default = form.cleaned_data.get('use_default')
+            print("injaaaaaaaa",token)
+            amount = int(order.get_total() * 100)
+
+            try:
+
+                # create the payment
+                payment = Payment()
+                payment.stripe_charge_id = token
+                payment.user = self.request.user
+                payment.amount = order.get_total()
+                payment.save()
+
+                # assign the payment to the order
+
+                order_items = order.items.all()
+                order_items.update(ordered=True)
+                for item in order_items:
+                    item.save()
+
+                order.ordered = True
+                order.payment = payment
+                order.ref_code = create_ref_code()
+                order.save()
+
+                messages.success(self.request, "Your order was successful!")
+                return redirect("/")
+
+            except:
+                # send an email to ourselves
+                messages.warning(
+                    self.request, "A serious error occurred. We have been notifed.")
+                return redirect("/")
+
+        messages.warning(self.request, "Invalid data received")
+        return redirect("/payment/stripe/")
+
 
 
 @login_required
@@ -191,6 +262,7 @@ def add_to_cart(request, slug):
         messages.info(request, "This item was added to your cart.")
         return redirect("core:order-summary")
 
+@login_required
 def remove_from_cart(request, slug):
     item = get_object_or_404(Item, slug=slug)
     order_qs = Order.objects.filter(
@@ -217,6 +289,7 @@ def remove_from_cart(request, slug):
         messages.info(request, "You do not have an active order")
         return redirect("core:product", slug=slug)
 
+@login_required
 def remove_single_item_from_cart(request, slug):
     item = get_object_or_404(Item, slug=slug)
     order_qs = Order.objects.filter(
