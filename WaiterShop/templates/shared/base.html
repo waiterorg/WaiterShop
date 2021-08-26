@@ -45,8 +45,8 @@ https://templatemo.com/tm-546-sixteen-clothing
     </div>  
     <!-- ***** Preloader End ***** -->
     
+    {% if messages %}
     <div class="mt-5 pt-5">
-      {% if messages %}
           {% for message in messages %}
           <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
             {{ message }}
@@ -55,8 +55,8 @@ https://templatemo.com/tm-546-sixteen-clothing
             </button>
           </div>
           {% endfor %}
-      {% endif %}
-    </div>
+        </div>
+    {% endif %}
 
     <!-- Header -->
     <header class="fixed-top">
@@ -74,7 +74,7 @@ https://templatemo.com/tm-546-sixteen-clothing
                 </a>
               </li> 
               <li class="nav-item">
-                <a class="nav-link" href="products.html">Our Products</a>
+                <a class="nav-link" href="{{ request.path }}">Our Products</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="about.html">About Us</a>

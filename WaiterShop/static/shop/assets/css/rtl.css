@@ -124,3 +124,8 @@
 	width: 500px;
 	height: 500px;
 }
+
+.banner {
+    position: relative;
+    text-align: center;
+}
