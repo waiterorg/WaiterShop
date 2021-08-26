@@ -48,8 +48,17 @@ class AddressAdmin(admin.ModelAdmin):
     list_filter = ['default', 'country']
     search_fields = ['user__username', 'street_address', 'apartment_address', 'zip']
 
+class OrderItemAdmin(admin.ModelAdmin):
+    list_display = ['user',
+                    'ordered',
+                    'quantity',
+                    ]
+    list_display_links = [
+        'user',
+    ]
+
 admin.site.register(Item)
-admin.site.register(OrderItem)
+admin.site.register(OrderItem, OrderItemAdmin)
 admin.site.register(Order, OrderAdmin)
 admin.site.register(Payment)
 admin.site.register(Coupon)
