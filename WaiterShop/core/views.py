@@ -14,6 +14,7 @@ from django.views.generic import ListView, DetailView, View
 from django.utils import timezone
 from .models import Item, Order, OrderItem, Address, Coupon, UserProfile, Payment, Refund, Category
 from .forms import CheckoutForm, CouponForm, PaymentForm, RefundForm
+from django.db.models import Q
 
 # Create your views here.
 def create_ref_code():
@@ -52,6 +53,21 @@ class CategoryList(ListView):
         context = super().get_context_data(**kwargs)
         context['category'] = category
         return context
+
+class SearchList(ListView):
+    paginate_by = 3
+    template_name = 'shop/search_list.html'
+
+    def get_queryset(self):
+        global search
+        search = self.request.GET.get('q')
+        return Item.objects.filter(Q(description__icontains=search) | Q(title__icontains=search))
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['search'] = search
+        return context
+
 
 class ItemDetailView(DetailView):
     model = Item

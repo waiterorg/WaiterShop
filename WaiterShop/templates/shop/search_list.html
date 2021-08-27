@@ -1,0 +1,21 @@
+{% extends 'shared/list_without_banner.html' %}
+
+{% block search %}
+    {{ search }}
+{% endblock search %}
+
+{% block previous_page_url %}
+    {% url 'core:search' page_obj.previous_page_number %}?q={{search}}
+{% endblock previous_page_url %}
+
+{% block active_page %}
+    {% url 'core:search' page %}?q={{search}}
+{% endblock active_page %}
+
+{% block unactive_page %}
+    {% url 'core:search' page %}?q={{search}}
+{% endblock unactive_page %}
+
+{% block next_page_url %}
+   {% url 'core:search' page_obj.next_page_number %} ?q={{search}}
+{% endblock next_page_url %}

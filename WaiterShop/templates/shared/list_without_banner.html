@@ -1,0 +1,57 @@
+{% extends 'shared/base.html' %}
+{% block content %}
+  <div class="products">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="section-heading">
+            <h2>Search for :{% block search %}{% endblock search %}</h2>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="filters-content">
+              <div class="row grid" style="position: relative; height: 767.782px;">
+                  {% for item in object_list %}
+                    <div class="col-lg-4 col-md-4 all des" style="position: absolute; left: 0%; top: 0px;">
+                    <div class="product-item">
+                      <a href="#"><img src="{{ item.image.url }}" alt=""></a>
+                      <div class="down-content">
+                        <a href="#"><h4>{{ item.title }}</h4></a>
+                        <h6>${{ item.price }}</h6>
+                        <p>{{ item.description }}</p>
+                        <ul class="stars">
+                          <li><i class="fa fa-star"></i></li>
+                          <li><i class="fa fa-star"></i></li>
+                          <li><i class="fa fa-star"></i></li>
+                          <li><i class="fa fa-star"></i></li>
+                          <li><i class="fa fa-star"></i></li>
+                        </ul>
+                        <span>Reviews (12)</span>
+                      </div>
+                    </div>
+                    </div>
+                  {% endfor %}
+              </div>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <ul class="pages">
+            {% if page_obj.has_previous %}
+            <li><a href="{% block previous_page_url %}{% endblock %}"><i class="fa fa-angle-double-left"></i></a></li>
+            {% endif %}
+            {% for page in paginator.page_range %}
+              {% if page == page_obj.number %}
+              <li class="active"><a href="{% block active_page %}{% endblock %}">{{ page }}</a></li>
+              {% else %}
+              <li><a href="{% block unactive_page %}{% endblock %}">{{ page }}</a></li>
+              {% endif %}
+            {% endfor %}
+            {% if page_obj.has_next %}
+            <li><a href="{% block next_page_url %}{% endblock %}"><i class="fa fa-angle-double-right"></i></a></li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock content %}

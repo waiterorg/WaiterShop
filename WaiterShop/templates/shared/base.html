@@ -83,8 +83,8 @@ https://templatemo.com/tm-546-sixteen-clothing
                 <a class="nav-link" href="contact.html">Contact Us</a>
               </li>
               <li>
-                <form class="searchform" action="">
-                  <input class="searchinput" type="search">
+                <form class="searchform" action="{% url 'core:search' %}">
+                  <input class="searchinput" name="q" type="search">
                   <i class="searchfa fa fa-search"></i>
                 </form>
               </li>
