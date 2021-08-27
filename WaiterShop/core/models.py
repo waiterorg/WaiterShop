@@ -49,7 +49,7 @@ class Item(models.Model):
     title = models.CharField(max_length=100)
     price = models.FloatField()
     discount_price = models.FloatField(blank=True, null=True)
-    category = models.ForeignKey(Category,on_delete=models.CASCADE,max_length=100)
+    category = models.ForeignKey(Category,on_delete=models.CASCADE,max_length=100,related_name='items')
     label = models.CharField(choices=LABEL_CHOICES, max_length=1)
     slug = models.SlugField()
     description = models.TextField()

@@ -1,0 +1,21 @@
+{% extends 'shared/list.html' %}
+
+{% block category %}
+    {{ category.title }}
+{% endblock category %}
+
+{% block previous_page_url %}
+    {% url 'core:product-category' category.slug page_obj.previous_page_number %}
+{% endblock previous_page_url %}
+
+{% block active_page %}
+    {% url 'core:product-category' category.slug page %}
+{% endblock active_page %}
+
+{% block unactive_page %}
+    {% url 'core:product-category' category.slug page %}
+{% endblock unactive_page %}
+
+{% block next_page_url %}
+   {% url 'core:product-category' category.slug page_obj.next_page_number %} 
+{% endblock next_page_url %}

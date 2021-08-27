@@ -12,7 +12,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView, DetailView, View
 from django.utils import timezone
-from .models import Item, Order, OrderItem, Address, Coupon, UserProfile, Payment, Refund
+from .models import Item, Order, OrderItem, Address, Coupon, UserProfile, Payment, Refund, Category
 from .forms import CheckoutForm, CouponForm, PaymentForm, RefundForm
 
 # Create your views here.
@@ -37,6 +37,21 @@ class ProductListView(ListView):
     paginate_by = 3
     template_name = "shop/product_list.html"
 
+class CategoryList(ListView):
+    paginate_by = 3
+    template_name = 'shop/category_list.html'
+
+    def get_queryset(self):
+        global category
+        slug = self.kwargs.get('slug')
+        category = get_object_or_404(
+            Category.objects.get_active_category(), slug=slug)
+        return category.items.all()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['category'] = category
+        return context
 
 class ItemDetailView(DetailView):
     model = Item
