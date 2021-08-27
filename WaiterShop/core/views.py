@@ -12,7 +12,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView, DetailView, View
 from django.utils import timezone
-from .models import Item, Order, OrderItem, Address, Coupon, UserProfile, Payment, Refund, Category, ContactMassage
+from .models import Item, Order, OrderItem, Address, Coupon, UserProfile, Payment, Refund, Category, ContactMessage
 from .forms import CheckoutForm, CouponForm, PaymentForm, RefundForm, ContactForm
 from django.db.models import Q
 
@@ -405,12 +405,14 @@ class ContactUsView(View):
             subject = form.cleaned_data['subject']
             message = form.cleaned_data['message']
             try:
-               ContactMassage.name = name
-               ContactMassage.email = email
-               ContactMassage.subject = subject
-               ContactMassage.massage = message
-               messages.success(self.request,"Your message has been successfully sent.")
-               return redirect("core:home")
+                ContactMassage = ContactMessage()
+                ContactMassage.name = name
+                ContactMassage.email = email
+                ContactMassage.subject = subject
+                ContactMassage.massage = message
+                ContactMassage.save()
+                messages.success(self.request,"Your message has been successfully sent.")
+                return redirect("core:home")
             except:
                 messages.warning(self.request,"something is wrong !")
                 return redirect("core:contact-us")
