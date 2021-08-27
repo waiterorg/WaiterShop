@@ -190,3 +190,9 @@
     background: #07051a;
     color: white;
 }
+
+.banner {
+    position: relative !important;
+    text-align: center !important;
+	padding-top: 1px !important;
+}
