@@ -29,8 +29,14 @@ def is_valid_form(values):
 
 class HomeView(ListView):
     model = Item
-    paginate_by = 5
     template_name = "shop/home.html"
+
+
+class ProductListView(ListView):
+    model = Item
+    paginate_by = 3
+    template_name = "shop/product_list.html"
+
 
 class ItemDetailView(DetailView):
     model = Item
