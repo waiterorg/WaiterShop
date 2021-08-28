@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Item, OrderItem, Order, Payment, Coupon, Refund, Address, UserProfile, Category, ContactMessage
+from .models import Item, OrderItem, Order, Payment, Coupon, Refund, Address, UserProfile, Category
 
 # Register your models here.
 def make_refund_accepted(modeladmin, request, queryset):
@@ -57,12 +57,6 @@ class OrderItemAdmin(admin.ModelAdmin):
         'user',
     ]
 
-class ContactUsAdmin(admin.ModelAdmin):
-    list_display = ['name',
-                    'email',
-                    'readed'
-                    ]
-    list_filter = ['readed']
 
 admin.site.register(Item)
 admin.site.register(OrderItem, OrderItemAdmin)
@@ -73,6 +67,6 @@ admin.site.register(Refund)
 admin.site.register(Address, AddressAdmin)
 admin.site.register(UserProfile)
 admin.site.register(Category)
-admin.site.register(ContactMessage, ContactUsAdmin)
+
 
 

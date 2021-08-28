@@ -48,6 +48,7 @@ INSTALLED_APPS = [
 
     'main_account.apps.MainAccountConfig',
     'core.apps.CoreConfig',
+    'company.apps.CompanyConfig',
 ]
 
 SITE_ID = 1

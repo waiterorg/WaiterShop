@@ -13,6 +13,7 @@ LABEL_CHOICES = (
     ('D', 'danger')
 )
 
+
 class CategoryManager(models.Manager):
     
     def get_active_category(self):
@@ -190,12 +191,3 @@ def userprofile_receiver(sender, instance, created, *args, **kwargs):
 post_save.connect(userprofile_receiver, sender=settings.AUTH_USER_MODEL)
 
 
-class ContactMessage(models.Model):
-    name = models.CharField(max_length = 150)
-    subject = models.CharField(max_length = 150)
-    massage = models.TextField()
-    email = models.EmailField()
-    readed = models.BooleanField(default=False)
-
-    def __str__(self):
-        return f"{self.subject} from {self.name}"
