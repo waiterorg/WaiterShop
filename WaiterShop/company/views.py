@@ -32,3 +32,7 @@ class ContactUsView(View):
             except:
                 messages.warning(self.request,"something is wrong !")
                 return redirect("core:contact-us")
+
+# class AboutUsView(View):
+#     def get(self, *args, **kwargs):
+#         query = 
