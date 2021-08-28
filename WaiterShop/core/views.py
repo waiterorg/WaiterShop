@@ -13,6 +13,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView, DetailView, View
 from django.utils import timezone
 from .models import Item, Order, OrderItem, Address, Coupon, UserProfile, Payment, Refund, Category
+from company.models import Company
 from .forms import CheckoutForm, CouponForm, PaymentForm, RefundForm
 from django.db.models import Q
 
@@ -31,6 +32,11 @@ def is_valid_form(values):
 class HomeView(ListView):
     model = Item
     template_name = "shop/home.html"
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['company'] = Company.objects.active_company()
+        return context
 
 
 class ProductListView(ListView):

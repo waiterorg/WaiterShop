@@ -67,7 +67,7 @@
         <div class="row">
           <div class="col-md-12">
             <div class="section-heading">
-              <h2>About Sixteen Clothing</h2>
+              <h2>About Waiter Shop</h2>
             </div>
           </div>
           <div class="col-md-6">
@@ -81,12 +81,12 @@
                 <li><a href="#">Corporis, omnis doloremque</a></li>
                 <li><a href="#">Non cum id reprehenderit</a></li>
               </ul>
-              <a href="about.html" class="filled-button">Read More</a>
+              <a href="{% url 'company:about-us' %}" class="filled-button">Read More</a>
             </div>
           </div>
           <div class="col-md-6">
             <div class="right-image">
-              <img src="{% static "shop/assets/images/feature-image.jpg" %}" alt="">
+              <img src="{{ company.image.url }}" alt="">
             </div>
           </div>
         </div>
