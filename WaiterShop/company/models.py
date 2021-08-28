@@ -1,6 +1,7 @@
 from django.db import models
 from django.conf import settings
 from main_account.models import SocialMediaAccount
+from django.utils.html import format_html
 # Create your models here.
 
 POSITION_CHOICES = (
@@ -42,13 +43,21 @@ class Company(models.Model):
     name = models.CharField(max_length = 200)
     title = models.CharField(max_length = 200)
     description = models.TextField()
-    image = models.ImageField(blank=True, null=True)
+    image = models.ImageField(upload_to='companies_image' ,blank=True, null=True)
     social_media = models.OneToOneField(SocialMediaAccount,on_delete=models.SET_NULL, blank=True, null=True)
     active = models.BooleanField(default=False)
     objects = CompanyManager()
 
     def __str__(self):
         return self.name
+
+    def company_image(self):
+        return format_html("<img src='{}' width=95 height=75 style='border-radius: 5px;'>".format(self.image.url))
+    company_image.short_description = 'company image'
+
+    def company_team(self):
+        return ", ".join([team_member.user.username for team_member in self.TeamMembers.active_member()])
+    company_team.short_description='members'
 
 
 class TeamMemberManager(models.Manager):

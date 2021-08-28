@@ -17,6 +17,6 @@ class SocialMediaAccount(models.Model):
 class User(AbstractUser):
     bio = models.TextField(blank=True, null=True)
     social_media = models.OneToOneField(SocialMediaAccount,on_delete=models.SET_NULL, related_name='TeamMember', blank=True, null=True)
-    image = models.ImageField(blank=True, null=True)
+    image = models.ImageField(upload_to='users_image', blank=True, null=True)
 
 
