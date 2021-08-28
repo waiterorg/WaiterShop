@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render
 from django.views.generic import View
 from django.contrib import messages
-from .models import ContactMessage
+from .models import ContactMessage, Company
 from .forms import ContactForm
 # Create your views here.
 
@@ -33,6 +33,10 @@ class ContactUsView(View):
                 messages.warning(self.request,"something is wrong !")
                 return redirect("core:contact-us")
 
-# class AboutUsView(View):
-#     def get(self, *args, **kwargs):
-#         query = 
+class AboutUsView(View):
+    def get(self, *args, **kwargs):
+        company = Company.objects.active_company()
+        context = {
+            'company': company
+        }
+        return render(self.request, 'shop/about-us.html', context)
