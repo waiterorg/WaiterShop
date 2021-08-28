@@ -76,3 +76,7 @@ class TeamMember(models.Model):
 
     def __str__(self):
         return f"{self.user.username} from {self.company}"
+
+    def name_of_user(self):
+        return self.user.username
+    name_of_user.short_description = 'name'
