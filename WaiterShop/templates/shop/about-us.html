@@ -30,10 +30,10 @@
             <h4>{{ company.title }}</h4>
             <p>{{ company.description }}</p>
             <ul class="social-icons">
-              <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-              <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-              <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-              <li><a href="#"><i class="fa fa-behance"></i></a></li>
+              <li><a href="{{ company.social_media.facebook }}"><i class="fa fa-facebook"></i></a></li>
+              <li><a href="{{ company.social_media.tweeter }}"><i class="fa fa-twitter"></i></a></li>
+              <li><a href="{{ company.social_media.linkedin }}"><i class="fa fa-linkedin"></i></a></li>
+
             </ul>
           </div>
         </div>
@@ -65,7 +65,7 @@
               </div>
             </div>
             <div class="down-content">
-              <h4>Johnny William</h4>
+              <h4>{{ member.user.get_full_name }}</h4>
               <span>{{ member.get_position_display }}</span>
               <p>{{ member.user.bio }}</p>
             </div>
