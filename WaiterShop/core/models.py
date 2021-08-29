@@ -13,6 +13,13 @@ LABEL_CHOICES = (
     ('D', 'danger')
 )
 
+TAG_CHOICES = (
+    ('BO','BEST OFFER'),
+    ('FD','FLASH DEALS'),
+    ('LM','LAST MINUTE'),
+
+)
+
 
 class CategoryManager(models.Manager):
     
@@ -182,6 +189,17 @@ class Refund(models.Model):
     def __str__(self):
         return f"{self.pk}"
 
+
+class LandingPageManager(models.Manager):
+    def active_landing_page(self):
+        return self.filter(status = True)
+
+
+class LandingPage(models.Model):
+    tag = models.CharField(choices = TAG_CHOICES, max_length = 200)
+    title = models.CharField(max_length = 200)
+    status = models.BooleanField(default=False)
+    objects = LandingPageManager()
 
 def userprofile_receiver(sender, instance, created, *args, **kwargs):
     if created:
