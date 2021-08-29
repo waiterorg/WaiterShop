@@ -20,11 +20,7 @@
                         <h6>${{ item.price }}</h6>
                         <p>{{ item.description }}</p>
                         <ul class="stars">
-                          <li><i class="fa fa-star"></i></li>
-                          <li><i class="fa fa-star"></i></li>
-                          <li><i class="fa fa-star"></i></li>
-                          <li><i class="fa fa-star"></i></li>
-                          <li><i class="fa fa-star"></i></li>
+                          {% ratings item icon_height=12 icon_width=12 %}
                         </ul>
                         <span>Reviews (12)</span>
                       </div>
