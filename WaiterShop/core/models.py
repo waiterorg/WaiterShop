@@ -7,6 +7,7 @@ from django.shortcuts import reverse
 from django_countries.fields import CountryField
 from django.contrib.contenttypes.fields import GenericRelation
 from star_ratings.models import Rating
+from django.utils import timezone
 
 
 
@@ -67,6 +68,9 @@ class Item(models.Model):
     description = models.TextField()
     image = models.ImageField(upload_to='items_image')
     ratings = GenericRelation(Rating, related_name='item')
+    publish = models.DateTimeField(default = timezone.now)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
     status = models.BooleanField(default=False)
 
     def __str__(self):

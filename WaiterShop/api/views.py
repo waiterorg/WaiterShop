@@ -7,8 +7,7 @@ from .serializers import ItemSerializers
 class ItemViewSet(ModelViewSet):
     queryset = Item.objects.all()
     serializer_class = ItemSerializers
-    filterset_fields = ['status', 'author__username','category__slug']
-    search_fields = ['title', 'author__username',
-                     'description', 'author__first_name', 'author__last_name']
-    ordering_fields = ['status', 'is_special']
+    filterset_fields = ['status']
+    search_fields = ['title', 'description']
+    ordering_fields = ['status','publish']
     ordering = ['-publish']

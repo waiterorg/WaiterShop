@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'star_ratings',
     'rest_framework',
+    'django_filters',
 
     'main_account.apps.MainAccountConfig',
     'core.apps.CoreConfig',
@@ -180,5 +181,10 @@ REST_FRAMEWORK = {
     # or allow read-only access for unauthenticated users.
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-    ]
+    ],
+    'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend',
+        'rest_framework.filters.SearchFilter',
+        'rest_framework.filters.OrderingFilter',
+    ],
 }
