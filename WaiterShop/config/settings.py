@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'crispy_forms',
+    'star_ratings',
 
     'main_account.apps.MainAccountConfig',
     'core.apps.CoreConfig',
@@ -168,4 +169,6 @@ STRIPE_PUBLIC_KEY = config('STRIPE_TEST_PUBLIC_KEY')
 STRIPE_SECRET_KEY = config('STRIPE_TEST_SECRET_KEY')
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+STAR_RATINGS_STAR_HEIGHT = 20
 

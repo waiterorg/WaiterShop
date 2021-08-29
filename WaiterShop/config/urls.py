@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.conf.urls.static import static
-from django.urls import path
+from django.urls import path, re_path
 from django.conf.urls import include
 from . import settings
 
@@ -24,7 +24,7 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('', include('core.urls')),
     path('company/', include('company.urls')),
-
+    re_path(r'^ratings/', include('star_ratings.urls', namespace='ratings')),
 
 ]
 

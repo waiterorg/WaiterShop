@@ -1,4 +1,5 @@
 {% extends 'shared/base.html' %}
+{% load ratings %}
 {% block content %}
 <div class="single-product">
     <div class="container">
@@ -43,6 +44,10 @@
             <div class="down-content">
               <div class="categories">
                 <h6>Category: <span><a href="#">{{ object.category.title }}</a></span></h6>
+              </div>
+              <div class="mt-2 mb-2">
+              <hr>
+              {% ratings object %}
               </div>
               <div class="share">
                 <h6>Share: <span><a href="#"><i class="fa fa-facebook"></i></a><a href="#"><i class="fa fa-linkedin"></i></a><a href="#"><i class="fa fa-twitter"></i></a></span></h6>
