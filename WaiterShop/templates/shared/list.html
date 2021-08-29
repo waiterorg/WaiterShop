@@ -1,4 +1,5 @@
 {% extends 'shared/base.html' %}
+{% load ratings %}
 {% block content %}
 <div class="page-heading products-heading header-text">
     <div class="container">
@@ -18,10 +19,9 @@
         <div class="col-md-12">
           <div class="filters">
             <ul>
-                <li class="active" data-filter="*">All Products</li>
-                <li data-filter=".des">Featured</li>
-                <li data-filter=".dev">Flash Deals</li>
-                <li data-filter=".gra">Last Minute</li>
+
+                <li class="active" data-filter="*"></li>
+
             </ul>
           </div>
         </div>
@@ -37,7 +37,7 @@
                         <h6>${{ item.price }}</h6>
                         <p>{{ item.description }}</p>
                         <ul class="stars">
-                          {% ratings item icon_height=12 icon_width=12 %}
+                          {% ratings item %}
                         </ul>
                         <span>Reviews (12)</span>
                       </div>
