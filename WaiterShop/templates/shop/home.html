@@ -35,7 +35,7 @@
                 <a href="{% url 'core:item_detail' item.slug %}"><h4>{{ item.title }}</h4></a>
                 <h6>${{ item.price }}</h6>
                 <p>{{ item.description }}</p>
-                {% ratings item icon_height=12 icon_width=12 %}
+                {% ratings item %}
                 <span>Reviews (24)</span>
               </div>
             </div>
