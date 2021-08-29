@@ -1,0 +1,9 @@
+.errors{
+    color: #c72121;
+    background-color: #f9e8ea;
+    padding: 10px 20px;
+}
+
+.errorfield {
+    color: #ce1212;
+}

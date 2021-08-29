@@ -13,6 +13,7 @@ django-crispy-forms==1.12.0
 django-filter==2.4.0
 django-model-utils==4.1.1
 django-star-ratings==0.9.1
+django-widget-tweaks==1.4.8
 djangorestframework==3.12.4
 idna==3.2
 Markdown==3.3.4

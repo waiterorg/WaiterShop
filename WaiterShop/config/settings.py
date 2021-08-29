@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'star_ratings',
     'rest_framework',
     'django_filters',
+    'widget_tweaks',
 
     'main_account.apps.MainAccountConfig',
     'core.apps.CoreConfig',
