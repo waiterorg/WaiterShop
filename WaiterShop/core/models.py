@@ -67,6 +67,7 @@ class Item(models.Model):
     description = models.TextField()
     image = models.ImageField(upload_to='items_image')
     ratings = GenericRelation(Rating, related_name='item')
+    status = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title
