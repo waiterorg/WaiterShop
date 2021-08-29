@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'crispy_forms',
     'star_ratings',
+    'rest_framework',
 
     'main_account.apps.MainAccountConfig',
     'core.apps.CoreConfig',
@@ -174,3 +175,10 @@ STAR_RATINGS_STAR_HEIGHT = 14
 STAR_RATINGS_RERATE = False
 
 
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}

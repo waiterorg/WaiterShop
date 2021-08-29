@@ -25,6 +25,8 @@ urlpatterns = [
     path('', include('core.urls')),
     path('company/', include('company.urls')),
     re_path(r'^ratings/', include('star_ratings.urls', namespace='ratings')),
+    path('api-auth/', include('rest_framework.urls')),
+    path('api/', include('api.urls')),
 
 ]
 
