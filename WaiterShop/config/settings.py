@@ -172,5 +172,5 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 STAR_RATINGS_STAR_HEIGHT = 18
 STAR_RATINGS_RERATE = False
-read_only = False
+
 
