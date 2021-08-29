@@ -195,11 +195,14 @@ class LandingPageManager(models.Manager):
         return self.filter(status = True)
 
 
-class LandingPage(models.Model):
+class LandingPageBanner(models.Model):
     tag = models.CharField(choices = TAG_CHOICES, max_length = 200)
     title = models.CharField(max_length = 200)
     status = models.BooleanField(default=False)
     objects = LandingPageManager()
+
+    def __str__(self):
+        return self.title
 
 def userprofile_receiver(sender, instance, created, *args, **kwargs):
     if created:

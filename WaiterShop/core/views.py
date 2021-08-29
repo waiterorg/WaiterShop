@@ -12,7 +12,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView, DetailView, View
 from django.utils import timezone
-from .models import Item, Order, OrderItem, Address, Coupon, UserProfile, Payment, Refund, Category, LandingPage
+from .models import Item, Order, OrderItem, Address, Coupon, UserProfile, Payment, Refund, Category, LandingPageBanner
 from company.models import Company
 from .forms import CheckoutForm, CouponForm, PaymentForm, RefundForm
 from django.db.models import Q
@@ -36,7 +36,7 @@ class HomeView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['company'] = Company.objects.active_company()
-        context['landing_page'] = LandingPage.objects.active_landing_page()[:3]
+        context['landing_page'] = LandingPageBanner.objects.active_landing_page()[:3]
         return context
 
 class ProductListView(ListView):
