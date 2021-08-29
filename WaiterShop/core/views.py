@@ -43,6 +43,12 @@ class ProductListView(ListView):
     model = Item
     paginate_by = 3
     template_name = "shop/product_list.html"
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['categories'] = Category.objects.get_active_category()
+        return context
+
 
 class CategoryList(ListView):
     paginate_by = 3
@@ -58,6 +64,7 @@ class CategoryList(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['category'] = category
+        context['categories'] = Category.objects.get_active_category()
         return context
 
 class SearchList(ListView):

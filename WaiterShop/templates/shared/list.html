@@ -19,9 +19,9 @@
         <div class="col-md-12">
           <div class="filters">
             <ul>
-
-                <li class="active" data-filter="*"></li>
-
+              {% for category in categories %}
+                <li class="active" data-filter="*"><a href="{% url 'core:product-category' category.slug %}">{{ category.title }}</a></li>
+              {% endfor %}
             </ul>
           </div>
         </div>
@@ -31,7 +31,7 @@
                   {% for item in object_list %}
                     <div class="col-lg-4 col-md-4 all des" style="position: absolute; left: 0%; top: 0px;">
                     <div class="product-item">
-                      <a href="#"><img src="{{ item.image.url }}" alt=""></a>
+                      <a href="{% url 'core:item_detail' item.slug %}"><img src="{{ item.image.url }}" alt=""></a>
                       <div class="down-content">
                         <a href="#"><h4>{{ item.title }}</h4></a>
                         <h6>${{ item.price }}</h6>
