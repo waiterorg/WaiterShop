@@ -50,7 +50,8 @@ class AddressAdmin(admin.ModelAdmin):
     search_fields = ['user__username', 'street_address', 'apartment_address', 'zip']
 
 class OrderItemAdmin(admin.ModelAdmin):
-    list_display = ['user',
+    list_display = ['order_item_name',
+                    'user',
                     'ordered',
                     'quantity',
                     ]

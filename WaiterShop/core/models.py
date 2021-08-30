@@ -98,6 +98,10 @@ class OrderItem(models.Model):
     def __str__(self):
         return f"{self.quantity} of {self.item.title}"
 
+    def order_item_name(self):
+        return f"{self.quantity} of {self.item.title}"
+    order_item_name.short_description = 'name'
+
     def get_total_item_price(self):
         return self.quantity * self.item.price
 
@@ -148,6 +152,7 @@ class Order(models.Model):
 
     def order_name(self):
         return f"{self.pk}-{self.user.username}"
+    order_name.short_description = 'name'
     
     def get_total(self):
         total = 0
