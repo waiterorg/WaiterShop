@@ -8,7 +8,8 @@ def make_refund_accepted(modeladmin, request, queryset):
 make_refund_accepted.short_description = 'Update orders to refund granted'
 
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ['user',
+    list_display = ('order_name',
+                    'user',
                     'ordered',
                     'being_delivered',
                     'received',
@@ -17,13 +18,13 @@ class OrderAdmin(admin.ModelAdmin):
                     'shipping_address',
                     'payment',
                     'coupon'
-                    ]
-    list_display_links = [
+                    )
+    list_display_links = (
         'user',
         'shipping_address',
         'payment',
         'coupon'
-    ]
+    )
     list_filter = ['ordered',
                    'being_delivered',
                    'received',

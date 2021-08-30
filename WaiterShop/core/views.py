@@ -46,7 +46,7 @@ class ProductListView(ListView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['categories'] = Category.objects.get_active_category()
+        context['categories'] = Category.objects.get_active_category()[:15]
         return context
 
 
@@ -64,7 +64,7 @@ class CategoryList(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['category'] = category
-        context['categories'] = Category.objects.get_active_category()
+        context['categories'] = Category.objects.get_active_category()[:15]
         return context
 
 class SearchList(ListView):
@@ -245,7 +245,6 @@ class PaymentView(LoginRequiredMixin,View):
             token = form.cleaned_data.get('stripeToken')
             save = form.cleaned_data.get('save')
             use_default = form.cleaned_data.get('use_default')
-            print("injaaaaaaaa",token)
             amount = int(order.get_total() * 100)
 
             try:
@@ -393,6 +392,7 @@ def remove_single_item_from_cart(request, slug):
                 order_item.save()
             else:
                 order.items.remove(order_item)
+                order_item.delete()
             messages.info(request, "This item quantity was updated.")
             return redirect("core:order-summary")
         else:

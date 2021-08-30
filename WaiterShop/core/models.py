@@ -144,8 +144,11 @@ class Order(models.Model):
     '''
 
     def __str__(self):
-        return self.user.username
+        return f"{self.pk}-{self.user.username}"
 
+    def order_name(self):
+        return f"{self.pk}-{self.user.username}"
+    
     def get_total(self):
         total = 0
         for order_item in self.items.all():
@@ -197,7 +200,7 @@ class Refund(models.Model):
     email = models.EmailField()
 
     def __str__(self):
-        return f"{self.pk}"
+        return f"{self.order}"
 
 
 class LandingPageManager(models.Manager):
