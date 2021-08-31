@@ -44,14 +44,14 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'widget_tweaks',
     'crispy_forms',
     'star_ratings',
     'rest_framework',
     'rest_framework.authtoken',
-    'django_filters',
-    'widget_tweaks',
     'dj_rest_auth',
     'dj_rest_auth.registration',
+    'django_filters',
 
     'main_account.apps.MainAccountConfig',
     'core.apps.CoreConfig',
@@ -185,7 +185,7 @@ REST_FRAMEWORK = {
         'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
     ),
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly'
     ],
     'DEFAULT_FILTER_BACKENDS': [
         'django_filters.rest_framework.DjangoFilterBackend',
