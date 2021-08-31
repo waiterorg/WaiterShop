@@ -47,8 +47,11 @@ INSTALLED_APPS = [
     'crispy_forms',
     'star_ratings',
     'rest_framework',
+    'rest_framework.authtoken',
     'django_filters',
     'widget_tweaks',
+    'dj_rest_auth',
+    'dj_rest_auth.registration',
 
     'main_account.apps.MainAccountConfig',
     'core.apps.CoreConfig',
@@ -178,8 +181,9 @@ STAR_RATINGS_RERATE = False
 
 
 REST_FRAMEWORK = {
-    # Use Django's standard `django.contrib.auth` permissions,
-    # or allow read-only access for unauthenticated users.
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
+    ),
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     ],
@@ -189,3 +193,8 @@ REST_FRAMEWORK = {
         'rest_framework.filters.OrderingFilter',
     ],
 }
+
+REST_USE_JWT = True
+
+JWT_AUTH_COOKIE = 'waitershop-access'
+JWT_AUTH_REFRESH_COOKIE = 'waitershop-refresh'
