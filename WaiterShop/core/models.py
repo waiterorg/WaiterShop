@@ -116,6 +116,10 @@ class OrderItem(models.Model):
             return self.get_total_discount_item_price()
         return self.get_total_item_price()
 
+class OrderManager(models.Manager):
+    def get_false_ordered(self):
+        return self.get(user=self.request.user, ordered=False)
+
 
 class Order(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
@@ -135,6 +139,7 @@ class Order(models.Model):
     received = models.BooleanField(default=False)
     refund_requested = models.BooleanField(default=False)
     refund_granted = models.BooleanField(default=False)
+    objects = OrderManager()
 
     '''
     1. Item added to cart
