@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from core.models import Item, Order, OrderItem, Item
+from core.models import Item, Order, OrderItem, Item, Address
 from company.models import Company, ContactMessage
 
 
@@ -49,3 +49,8 @@ class MyOrderSerializers(serializers.ModelSerializer):
     class Meta:
         model = Order
         fields = '__all__'
+
+class AddressSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = Address
+        exclude = ['default']

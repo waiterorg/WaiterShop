@@ -6,10 +6,10 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework import permissions, status
 from rest_framework.generics import GenericAPIView
-from rest_framework.mixins import ListModelMixin
-from core.models import Item, OrderItem, Order
+from rest_framework.mixins import ListModelMixin, CreateModelMixin
+from core.models import Item, OrderItem, Order, Address
 from company.models import Company, ContactMessage
-from .serializers import ItemSerializers, CompanySerializers, ContactMessageSerializers, MyOrderSerializers
+from .serializers import ItemSerializers, CompanySerializers, ContactMessageSerializers, MyOrderSerializers, AddressSerializers
 from django.utils import timezone
 # Create your views here.
 
@@ -129,3 +129,11 @@ class OrderSummary(ListModelMixin, GenericAPIView):
     def get(self, request, *args, **kwargs):
         return self.list(request,*args, **kwargs )
 
+
+class CheckoutAPIView(CreateModelMixin,GenericAPIView):
+    queryset = Address.objects.all()
+    serializer_class = AddressSerializers
+    permission_classes = [permissions.IsAuthenticated]
+
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
