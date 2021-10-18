@@ -51,14 +51,14 @@ class ProductListView(ListView):
 
 
 class CategoryList(ListView):
-    paginate_by = 3
+    paginate_by = 5
     template_name = 'shop/category_list.html'
 
     def get_queryset(self):
         global category
         slug = self.kwargs.get('slug')
         category = get_object_or_404(
-            Category.objects.get_active_category(), slug=slug)
+            Category.objects.get_active_category().prefetch_related('items'), slug=slug)
         return category.items.all()
 
     def get_context_data(self, **kwargs):
