@@ -26,7 +26,7 @@ urlpatterns = [
     path('company/', include('company.urls')),
     re_path(r'^ratings/', include('star_ratings.urls', namespace='ratings')),
     path('api-auth/', include('rest_framework.urls')),
-    path('api/', include('api.urls')),
+    path('api/v1/', include('api.urls')),
     path('api/rest-auth/', include('dj_rest_auth.urls')),
     path('api/rest-auth/registration/', include('dj_rest_auth.registration.urls'))
 ]
