@@ -44,7 +44,7 @@
             <div class="down-content">
               <div class="categories">
                 
-                <h6>Category:{% for category in object.category.get_active_category %} <span><a href="#">{{ category.title }} ,</a></span>{% endfor %}</h6>
+                <h6>Category:{% for category in object.category.get_active_category %} <span><a href="{% url 'core:product-category' category.slug %}">{{ category.title }} ,</a></span>{% endfor %}</h6>
                 
               </div>
               <hr>
