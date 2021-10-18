@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'dj_rest_auth',
     'dj_rest_auth.registration',
     'django_filters',
+    'debug_toolbar',
 
     'main_account.apps.MainAccountConfig',
     'core.apps.CoreConfig',
@@ -68,6 +69,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -145,7 +147,6 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
     BASE_DIR / "static",
@@ -198,3 +199,8 @@ REST_USE_JWT = True
 
 JWT_AUTH_COOKIE = 'waitershop-access'
 JWT_AUTH_REFRESH_COOKIE = 'waitershop-refresh'
+
+
+INTERNAL_IPS = [
+    '127.0.0.1',
+]
