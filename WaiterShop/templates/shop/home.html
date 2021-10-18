@@ -71,7 +71,9 @@
           </div>
           <div class="col-md-6">
             <div class="right-image">
-              <img src="{{ company.image.url }}" alt="">
+              {% for item in company %}
+              <img src="media/{{ item.image }}" alt="">
+              {% endfor %}
             </div>
           </div>
         </div>

@@ -35,7 +35,7 @@ class HomeView(ListView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['company'] = Company.objects.active_company()
+        context['company'] = Company.objects.filter_active_company().values('image')
         context['landing_page'] = LandingPageBanner.objects.active_landing_page()[:3]
         return context
 
