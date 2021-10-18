@@ -34,8 +34,11 @@ class ContactMessage(models.Model):
 
 class CompanyManager(models.Manager):
     
-    def active_company(self):
+    def get_active_company(self):
         active = self.get(active = True)
+        return active
+    def filter_active_company(self):
+        active = self.filter(active = True)
         return active
 
 
