@@ -27,7 +27,7 @@ TAG_CHOICES = (
 
 class CategoryManager(models.Manager):
     
-    def get_active_category(self):
+    def filter_active_category(self):
         active = self.filter(status=True)
         return active
 
