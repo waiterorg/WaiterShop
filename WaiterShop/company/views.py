@@ -35,7 +35,7 @@ class ContactUsView(View):
 
 class AboutUsView(View):
     def get(self, *args, **kwargs):
-        company = Company.objects.active_company()
+        company = Company.objects.get_active_company()
         context = {
             'company': company
         }
