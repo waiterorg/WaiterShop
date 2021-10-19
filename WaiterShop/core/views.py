@@ -30,8 +30,11 @@ def is_valid_form(values):
 
 
 class HomeView(ListView):
-    model = Item
     template_name = "shop/home.html"
+
+    def get_queryset(self):
+        return Item.objects.filter_true_status()[:6]
+
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

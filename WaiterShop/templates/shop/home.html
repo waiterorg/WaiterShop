@@ -27,7 +27,7 @@
               <a href="{% url 'core:product-list' %}">view all products <i class="fa fa-angle-right"></i></a>
             </div>
           </div>
-          {% for item in object_list|slice:":6" %}
+          {% for item in object_list %}
           <div class="col-md-4">
             <div class="product-item">
               <a href="{% url 'core:item_detail' item.slug %}"><img src="{{ item.image.url }}" class="" alt=""></a>
