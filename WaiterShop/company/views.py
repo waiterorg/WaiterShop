@@ -35,8 +35,11 @@ class ContactUsView(View):
 
 class AboutUsView(View):
     def get(self, *args, **kwargs):
-        company = Company.objects.get_active_company()
+        company = Company.objects.filter_active_company().select_related('social_media').first()
+        team_member = company.TeamMembers.active_member().select_related('user','user__social_media')
+
         context = {
-            'company': company
+            'company': company,
+            'team_member': team_member
         }
         return render(self.request, 'shop/about-us.html', context)
