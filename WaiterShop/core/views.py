@@ -46,7 +46,7 @@ class ProductListView(ListView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['categories'] = Category.objects.get_active_category()[:15]
+        context['categories'] = Category.objects.filter_active_category().values('title','slug')[:10]
         return context
 
 
@@ -58,13 +58,13 @@ class CategoryList(ListView):
         global category
         slug = self.kwargs.get('slug')
         category = get_object_or_404(
-            Category.objects.get_active_category().prefetch_related('items'), slug=slug)
+            Category.objects.filter_active_category().prefetch_related('items'), slug=slug)
         return category.items.all()
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['category'] = category
-        context['categories'] = Category.objects.get_active_category()[:15]
+        context['categories'] = Category.objects.filter_active_category().values('title','slug')[:10]
         return context
 
 class SearchList(ListView):
