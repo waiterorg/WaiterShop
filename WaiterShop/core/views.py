@@ -134,7 +134,6 @@ class CheckoutView(LoginRequiredMixin,View):
                 use_default_shipping = form.cleaned_data.get(
                     'use_default_shipping')
                 if use_default_shipping:
-                    print("Using the defualt shipping address")
                     address_qs = Address.objects.filter(
                         user=self.request.user,
                         default=True
@@ -148,7 +147,6 @@ class CheckoutView(LoginRequiredMixin,View):
                             self.request, "No default shipping address available")
                         return redirect('core:checkout')
                 else:
-                    print("User is entering a new shipping address")
                     shipping_address1 = form.cleaned_data.get(
                         'shipping_address')
                     shipping_address2 = form.cleaned_data.get(
