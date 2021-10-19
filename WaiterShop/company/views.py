@@ -7,10 +7,7 @@ from .forms import ContactForm
 
 class ContactUsView(View):
     def get(self, *args, **kwargs):
-        form = ContactForm()
-        context = {
-            'form': form
-        }
+        context = {}
         return render(self.request, "shop/contact-us.html", context)
     
     def post(self, *args, **kwargs):
