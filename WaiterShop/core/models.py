@@ -57,6 +57,10 @@ class UserProfile(models.Model):
         return self.user.username
 
 
+class ItemManager(models.Manager):
+    def filter_true_status(self):
+        return self.filter(status=True)
+
 
 class Item(models.Model):
     title = models.CharField(max_length=100)
@@ -72,6 +76,7 @@ class Item(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     status = models.BooleanField(default=False)
+    objects = ItemManager()
 
     def __str__(self):
         return self.title
