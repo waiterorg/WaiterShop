@@ -92,7 +92,7 @@ class ItemDetailView(DetailView):
 class OrderSummaryView(LoginRequiredMixin, View):
     def get(self, *args, **kwargs):
         try:
-            order = Order.objects.get(user=self.request.user, ordered=False)
+            order = Order.objects.prefetch_related('items','items__item').get(user=self.request.user, ordered=False)
             context = {
                 'object': order
             }
