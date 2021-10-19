@@ -4,14 +4,13 @@ from django.contrib.auth.models import AbstractUser
 # Create your models here.
 
 class SocialMediaAccount(models.Model):
-    user = models.OneToOneField(settings.AUTH_USER_MODEL,
-                             on_delete=models.CASCADE, blank=True, null=True)
+    name = models.CharField(max_length=150)
     facebook = models.URLField()
     tweeter = models.URLField()
     linkedin = models.URLField()
 
     def __str__(self):
-        return self.user.username
+        return self.name
 
 
 class User(AbstractUser):
