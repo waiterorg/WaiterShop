@@ -124,7 +124,7 @@ class CheckoutView(LoginRequiredMixin,View):
             return render(self.request, "shop/checkout.html", context)
         except ObjectDoesNotExist:
             messages.info(self.request, "You do not have an active order")
-            return redirect("core:checkout")
+            return redirect("core:product-list")
 
     def post(self, *args, **kwargs):
         form = CheckoutForm(self.request.POST or None)
@@ -156,7 +156,6 @@ class CheckoutView(LoginRequiredMixin,View):
                     shipping_country = form.cleaned_data.get(
                         'shipping_country')
                     shipping_zip = form.cleaned_data.get('shipping_zip')
-                    print("injaaaaaaaa {}".format(shipping_address1))
                     
                     if is_valid_form([shipping_address1, shipping_country, shipping_zip]):
                         shipping_address = Address(
@@ -193,7 +192,7 @@ class CheckoutView(LoginRequiredMixin,View):
                     return redirect('core:checkout')
         except ObjectDoesNotExist:
             messages.warning(self.request, "You do not have an active order")
-            return redirect("core:order-summary")
+            return redirect("core:product-list")
 
 
 def get_coupon(request, code):
