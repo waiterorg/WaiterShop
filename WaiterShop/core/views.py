@@ -104,14 +104,14 @@ class OrderSummaryView(LoginRequiredMixin, View):
 class CheckoutView(LoginRequiredMixin,View):
     def get(self, *args, **kwargs):
         try:
-            order = Order.objects.get(user=self.request.user, ordered=False)
+            order = Order.objects.select_related('coupon').get(user=self.request.user, ordered=False)
             form = CheckoutForm()
             context = {
-                'form': form,
-                'couponform': CouponForm(),
-                'order': order,
-                'DISPLAY_COUPON_FORM': True
-            }
+                    'form': form,
+                    'couponform': CouponForm(),
+                    'order': order,
+                    'DISPLAY_COUPON_FORM': True,
+                }
 
             shipping_address_qs = Address.objects.filter(
                 user=self.request.user,
