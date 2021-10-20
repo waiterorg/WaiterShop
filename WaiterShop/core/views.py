@@ -224,7 +224,8 @@ class PaymentView(LoginRequiredMixin,View):
     def get(self, *args, **kwargs):
             
         try:
-            order = Order.objects.get(user=self.request.user, ordered=False)
+            order = Order.objects.prefetch_related('items','items__item').select_related('coupon').get(user=self.request.user, ordered=False)
+
             if order.shipping_address:
                 context = {
                     'order': order,
@@ -243,8 +244,6 @@ class PaymentView(LoginRequiredMixin,View):
         form = PaymentForm(self.request.POST)
         if form.is_valid():
             token = form.cleaned_data.get('stripeToken')
-            save = form.cleaned_data.get('save')
-            use_default = form.cleaned_data.get('use_default')
             amount = int(order.get_total() * 100)
 
             try:
@@ -253,7 +252,7 @@ class PaymentView(LoginRequiredMixin,View):
                 payment = Payment()
                 payment.stripe_charge_id = token
                 payment.user = self.request.user
-                payment.amount = order.get_total()
+                payment.amount = amount
                 payment.save()
 
                 # assign the payment to the order
@@ -265,10 +264,11 @@ class PaymentView(LoginRequiredMixin,View):
 
                 order.ordered = True
                 order.payment = payment
-                order.ref_code = create_ref_code()
+                ref_code = create_ref_code()
+                order.ref_code = ref_code
                 order.save()
 
-                messages.success(self.request, "Your order was successful!")
+                messages.success(self.request, "Your order was successful! This is your refrence code : '{}'".format(ref_code))
                 return redirect("/")
 
             except:
