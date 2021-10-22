@@ -46,6 +46,9 @@ class ProductListView(ListView):
     model = Item
     paginate_by = 3
     template_name = "shop/product_list.html"
+
+    def get_queryset(self):
+        return Item.objects.filter_true_status()
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
