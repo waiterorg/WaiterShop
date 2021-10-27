@@ -1,5 +1,6 @@
 import random
 import string
+from django.core.cache import cache
 
 from django.shortcuts import render, get_object_or_404
 from django.core.exceptions import ObjectDoesNotExist
@@ -47,7 +48,7 @@ class ProductListView(ListView):
     template_name = "shop/product_list.html"
 
     def get_queryset(self):
-        return Item.objects.filter_true_status()
+        return cache.get_or_set('product_objects', Item.objects.filter_true_status())
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
