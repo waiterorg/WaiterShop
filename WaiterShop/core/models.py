@@ -2,12 +2,14 @@ from django.db import models
 from django.db.models.signals import post_save
 from django.conf import settings
 from django.db import models
-from django.db.models import Sum
+from django.core.cache import cache
 from django.shortcuts import reverse
 from django_countries.fields import CountryField
 from django.contrib.contenttypes.fields import GenericRelation
 from star_ratings.models import Rating
 from django.utils import timezone
+from django.db.models import QuerySet, Manager
+
 
 
 
@@ -23,6 +25,12 @@ TAG_CHOICES = (
     ('LM','LAST MINUTE'),
 
 )
+
+class CustomQuerySet(QuerySet):
+    def update(self, **kwargs):
+        cache.delete('product_objects')
+        super(CustomQuerySet, self).update(updated=timezone.now(), **kwargs)
+
 
 
 class CategoryManager(models.Manager):
@@ -60,6 +68,9 @@ class UserProfile(models.Model):
 class ItemManager(models.Manager):
     def filter_true_status(self):
         return self.filter(status=True)
+
+    def get_queryset(self):
+        return CustomQuerySet(self.model, using=self._db)
 
 
 class Item(models.Model):
