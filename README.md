@@ -46,5 +46,7 @@ WaiterShop is a simple shop application with RESTAPI, where users can buy produc
 
 ## What the app looks like
 ![ScreenShot](screenshots/ScreenshotHome.png)
+
+
 ![ScreenShot](screenshots/ScreenshotAboutUs.png)
 
