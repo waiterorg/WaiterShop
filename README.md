@@ -45,4 +45,4 @@ WaiterShop is a simple shop application with RESTAPI, where users can buy produc
 - Django Packages
 
 ## What the app looks like
-
+![ScreenShot](screenshots/ScreenshotHome.png)
