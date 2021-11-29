@@ -52,7 +52,7 @@
 
 # RESTAPI
   this api is based on JWT Auth, if you dont know RESTfulAPI what is it, visit https://restfulapi.net/ .
-## RESTAPI urls
+## URLs
   - http://127.0.0.1:8000/api/rest-auth/login/
   - http://127.0.0.1:8000/api/v1/products/
   - http://127.0.0.1:8000/api/v1/products/8/
