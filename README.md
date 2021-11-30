@@ -1,7 +1,8 @@
 # WaiterShop
+WaiterShop is a simple shop application with RESTAPI, where users can buy products .
 ---
 
-### Setup
+## Setup
 
 1. Download the Repository to your local machine <br>
 2. Create a Virtual Environment in the [WaiterShop](./) folder with this command below <br>
@@ -11,7 +12,7 @@
 4. Install the dependencies <br>
    `pip install -r requirements.txt `
 
-### Running the Application
+## Running the Application
 
 1. Activate the environment with this command. <br>
    `.\venv\Scripts\activate`
@@ -19,7 +20,7 @@
    located_) <br>
    ` python manage.py runserver`
 
-### Accessing the Admin Panel
+## Accessing the Admin Panel
 
 1. You can access the admin panel by running the server and opening <http://localhost:8000/admin>
 2. Run `python manage.py createsuperuser` to create a user to access the admin panel.
