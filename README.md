@@ -1,6 +1,6 @@
 # WaiterShop
-WaiterShop is a simple shop application with RESTAPI, where users can buy products .
 ---
+WaiterShop is a simple shop application with RESTAPI, where users can buy products .
 
 ## Setup
 
