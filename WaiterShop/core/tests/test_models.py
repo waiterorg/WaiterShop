@@ -36,3 +36,6 @@ class OrderItemTest(TestCase):
         actual_final_price = self.order_item.get_final_price()
         expected_final_price = 40
         self.assertEqual(actual_final_price, expected_final_price)
+
+class OrderTest(TestCase):
+    pass
