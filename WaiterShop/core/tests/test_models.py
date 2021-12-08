@@ -4,11 +4,23 @@ from django.contrib.auth import get_user_model
 from ..models import Category, Coupon, Item, Order, OrderItem
 user = get_user_model()
 
+class CategoryTest(TestCase):
+
+    def test_str(self):
+        # make category instance
+        category = Category.objects.create(title='ss', slug='ww', status=True, position=2)
+        
+        self.assertEqual(str(category), category.title)
+
+    def test_manager_filter_active_category(self):
+        self.assertEqual(Category.objects.filter_active_category().count(),
+                         Category.objects.filter(status=True).count())
+
 class OrderItemTest(TestCase):
     @classmethod
     def setUpTestData(self):
         user_test = user.objects.create_user(username='test',email='ho@sf.ui', password='helloo')
-        category = Category.objects.create(title='ss', slug='ww', status=True, position='2')
+        category = Category.objects.create(title='ss', slug='ww', status=True, position=2)
         item = Item.objects.create(title='aa',price=50, discount_price=20)
         item.category.add(category)
         self.order_item = OrderItem.objects.create(user=user_test,ordered=False,item=item,quantity=2)
