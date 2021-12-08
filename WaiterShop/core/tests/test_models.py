@@ -12,7 +12,6 @@ class OrderItemTest(TestCase):
         self.order_item = OrderItem.objects.create(user=user_test,ordered=False,item=item,quantity=2)
 
     def test_order_item_name(self):
-        orderitem=OrderItem()
         actual_order_item_name = self.order_item.order_item_name()
         expected_order_item_name = '2 of aa'
         self.assertEqual(actual_order_item_name, expected_order_item_name)
@@ -38,4 +37,8 @@ class OrderItemTest(TestCase):
         self.assertEqual(actual_final_price, expected_final_price)
 
 class OrderTest(TestCase):
-    pass
+    user_test = user.objects.create_user(username='test',email='ho@sf.ui', password='helloo')
+    category = Category.objects.create(title='ss', slug='ww', status=True, position='2')
+    item = Item.objects.create(title='aa',price=50, discount_price=20)
+    item.category.add(category)
+    self.order_item = OrderItem.objects.create(user=user_test,ordered=False,item=item,quantity=2)
