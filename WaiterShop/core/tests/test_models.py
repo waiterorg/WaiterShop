@@ -6,7 +6,7 @@ from ..factories import CategoryFactory, OrderItemFactory, OrderFactory
 user = get_user_model()
 
 
-class CategoryTest(TestCase):
+class CategoryTestCase(TestCase):
     @classmethod
     def setUpTestData(self):
         CategoryFactory.create(title = 'cloths', slug = 'cloths')
@@ -19,7 +19,7 @@ class CategoryTest(TestCase):
                          Category.objects.filter(status=True).count())
 
 
-class OrderItemTest(TestCase):
+class OrderItemTestCase(TestCase):
     @classmethod
     def setUpTestData(self):
         global order_item
@@ -55,7 +55,7 @@ class OrderItemTest(TestCase):
         self.assertEqual(actual_final_price, expected_final_price)
 
 
-class OrderTest(TestCase):
+class OrderTestCase(TestCase):
     @classmethod
     def setUpTestData(self):
         global order
