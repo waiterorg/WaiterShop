@@ -2,18 +2,17 @@ from datetime import datetime
 from django.test import TestCase
 from django.contrib.auth import get_user_model
 from ..models import Category, Coupon, Item, Order, OrderItem
-from ..factories import OrderItemFactory, OrderFactory
+from ..factories import CategoryFactory, OrderItemFactory, OrderFactory
 user = get_user_model()
 
 
 class CategoryTest(TestCase):
-
+    @classmethod
+    def setUpTestData(self):
+        CategoryFactory.create(title = 'cloths', slug = 'cloths')
+    
     def test_str(self):
-        # make category instance
-        category = Category.objects.create(
-            title='ss', slug='ww', status=True, position=2)
-
-        self.assertEqual(str(category), category.title)
+        self.assertEqual(str(Category.objects.get(pk=1)), Category.objects.get(pk=1).title)
 
     def test_manager_filter_active_category(self):
         self.assertEqual(Category.objects.filter_active_category().count(),
