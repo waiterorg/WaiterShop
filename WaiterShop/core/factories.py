@@ -1,27 +1,33 @@
-from datetime import datetime
-from factory import SubFactory
-from factory.django import DjangoModelFactory
-from factory import post_generation
-from .models import Coupon, OrderItem, Item, Category, Order
+import random
 from django.contrib.auth import get_user_model
+from django.template.defaultfilters import slugify
+from datetime import datetime
+from factory import SubFactory, post_generation, Faker, LazyAttribute, lazy_attribute
+from factory.django import DjangoModelFactory
+from .models import Coupon, OrderItem, Item, Category, Order
+
+
 user = get_user_model()
 
 class CategoryFactory(DjangoModelFactory): 
     class Meta: 
         model = Category
     
-    title = 'ss'
-    slug = 'ww'
+    title = Faker('word')
     status = True
-    position = 2
+    position = LazyAttribute(lambda x:random.randrange(1,10))
+    @lazy_attribute
+    def slug(self):
+        return slugify(self.title)
 
 class ItemFactory(DjangoModelFactory): 
     class Meta: 
         model = Item
     
-    title = 'aa'
-    price = 50
-    discount_price = 20
+    title = Faker('word')
+    price = LazyAttribute(lambda x:random.randrange(50,100))
+
+    discount_price = LazyAttribute(lambda x:random.randrange(10,40))
     
     @post_generation
     def category(self, create, extracted):
@@ -37,9 +43,9 @@ class UserFactory(DjangoModelFactory):
     class Meta: 
         model = user
     
-    username = 'test'
-    email = 'ho@sf.ui' 
-    password = 'helloo'
+    username = Faker('first_name')
+    email = Faker('email')
+    password = Faker('word')
 
 class OrderItemFactory(DjangoModelFactory): 
     class Meta: 
@@ -47,22 +53,22 @@ class OrderItemFactory(DjangoModelFactory):
     
     ordered = False
     item = SubFactory(ItemFactory)
-    quantity = 2
+    quantity = LazyAttribute(lambda x:random.randrange(1,5))
     user = SubFactory(UserFactory)
 
 class CouponFactory(DjangoModelFactory): 
     class Meta: 
         model = Coupon
     
-    code = 'vip client'
-    amount = 20
+    code = Faker('word')
+    amount = LazyAttribute(lambda x:random.randrange(5,10))
 
 class OrderFactory(DjangoModelFactory): 
     class Meta: 
         model = Order
     
     ordered = False
-    ordered_date = datetime.now()
+    ordered_date = Faker('date_time')
     user = SubFactory(UserFactory)
     coupon = SubFactory(CouponFactory)
     

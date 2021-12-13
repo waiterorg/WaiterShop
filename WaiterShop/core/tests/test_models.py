@@ -1,18 +1,18 @@
 from datetime import datetime
 from django.test import TestCase
-from django.contrib.auth import get_user_model
-from ..models import Category, Coupon, Item, Order, OrderItem
+from unittest import skip
+from ..models import Category, Order, OrderItem
 from ..factories import CategoryFactory, OrderItemFactory, OrderFactory
-user = get_user_model()
+
 
 
 class CategoryTestCase(TestCase):
     @classmethod
-    def setUpTestData(self):
-        CategoryFactory.create(title = 'cloths', slug = 'cloths')
-    
+    def setUpTestData(cls):
+        cls.category = CategoryFactory.create(title = 'cloths i am windo64%$^')
+ 
     def test_str(self):
-        self.assertEqual(str(Category.objects.get(pk=1)), Category.objects.get(pk=1).title)
+        self.assertEqual(str(self.category), self.category.title)
 
     def test_manager_filter_active_category(self):
         self.assertEqual(Category.objects.filter_active_category().count(),
@@ -21,57 +21,70 @@ class CategoryTestCase(TestCase):
 
 class OrderItemTestCase(TestCase):
     @classmethod
-    def setUpTestData(self):
-        global order_item
-        order_item = OrderItemFactory.create(ordered = False, item__title='shirt1', user__username = 'test_user')
+    def setUpTestData(cls):
+        category = CategoryFactory.create()
+        cls.order_item = OrderItemFactory.create(item__category =(category,))
     
+    def test_order_item_creation(self):
+        self.assertIsInstance(self.order_item, OrderItem)
+
     def test_str(self):
-        self.assertEqual(str(order_item), '2 of shirt1')
+        self.assertEqual(str(self.order_item), f"{self.order_item.quantity} of {self.order_item.item.title}")
 
     def test_order_item_name(self):
-        actual_order_item_name = order_item.order_item_name()
-        expected_order_item_name = '2 of shirt1'
+        actual_order_item_name = self.order_item.order_item_name()
+        expected_order_item_name = f"{self.order_item.quantity} of {self.order_item.item.title}"
         self.assertEqual(actual_order_item_name, expected_order_item_name)
 
     def test_total_item_price(self):
-        actual_total_item_price = order_item.get_total_item_price()
-        expect_total_item_price = 100
+        actual_total_item_price = self.order_item.get_total_item_price()
+        expect_total_item_price = self.order_item.quantity * self.order_item.item.price
         self.assertEqual(actual_total_item_price, expect_total_item_price)
 
     def test_get_total_discount_item_price(self):
-        actual_total_discount_price = order_item.get_total_discount_item_price()
-        expect_total_discount_price = 40
+        actual_total_discount_price = self.order_item.get_total_discount_item_price()
+        expect_total_discount_price = self.order_item.quantity * self.order_item.item.discount_price
         self.assertEqual(actual_total_discount_price,
                          expect_total_discount_price)
 
     def test_get_amount_saved(self):
-        actual_amount_save = order_item.get_amount_saved()
-        expected_amount_save = 60
+        actual_amount_save = self.order_item.get_amount_saved()
+        expected_amount_save = self.order_item.get_total_item_price() - self.order_item.get_total_discount_item_price()
         self.assertEqual(actual_amount_save, expected_amount_save)
 
     def test_get_final_price(self):
-        actual_final_price = order_item.get_final_price()
-        expected_final_price = 40
+        actual_final_price = self.order_item.get_final_price()
+        if self.order_item.item.discount_price:
+            expected_final_price = self.order_item.get_total_discount_item_price()
+        else:
+            expected_final_price = self.order_item.get_total_item_price()
         self.assertEqual(actual_final_price, expected_final_price)
 
 
 class OrderTestCase(TestCase):
     @classmethod
-    def setUpTestData(self):
+    def setUpTestData(cls):
         global order
-        item1 = OrderItemFactory.create(ordered = False, item__title='shirt1', user__username = 'test_user')
-        item2 = OrderItemFactory.create(ordered = False, item__title='shirt2', user__username = 'test_user2')
-        order = OrderFactory.create(ordered = False, ordered_date = datetime.now(), user__username = 'test1', coupon__code = 'code_test', items=(item1, item2))
+        item1 = OrderItemFactory.create(ordered = False, user__username = 'test_user')
+        item2 = OrderItemFactory.create(ordered = False, user__username = 'test_user2')
+        cls.order = OrderFactory.create(ordered = False, ordered_date = datetime.now(), user__username = 'test1', coupon__code = 'code_test', items=(item1, item2))
+    
+    def test_order_creation(self):
+        self.assertIsInstance(self.order, Order)
     
     def test_str(self):
-        self.assertEqual(str(order), '1-test1')
+        self.assertEqual(str(self.order), f"{self.order.pk}-{self.order.user.username}")
 
     def test_order_name(self):
-        actual_order_name = order.order_name()
-        expected_order_name = '1-test1'
+        actual_order_name = self.order.order_name()
+        expected_order_name = f"{self.order.pk}-{self.order.user.username}"
         self.assertEqual(actual_order_name, expected_order_name)
 
     def test_get_total(self):
-        actual_get_total = order.get_total()
-        expected_get_total = 60
+        actual_get_total = self.order.get_total()
+        expected_get_total = 0
+        for order_item in self.order.items.all():
+            expected_get_total += order_item.get_final_price()
+        if self.order.coupon:
+            expected_get_total -= self.order.coupon.amount
         self.assertEqual(actual_get_total, expected_get_total)
