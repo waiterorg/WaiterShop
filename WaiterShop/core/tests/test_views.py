@@ -34,5 +34,6 @@ class HomeViewTest(TestCase):
         landing_page = response.context['landing_page'][0]
         self.assertIsInstance(landing_page, LandingPageBanner)
 
-
+class ProductListViewTest(TestCase):
+    pass
        
