@@ -1,10 +1,15 @@
 import random
 from django.contrib.auth import get_user_model
-from django.template.defaultfilters import slugify
-from datetime import datetime
-from factory import SubFactory, post_generation, Faker, LazyAttribute, lazy_attribute
-from factory.django import DjangoModelFactory
-from .models import Coupon, OrderItem, Item, Category, Order
+from django.template.defaultfilters import length, slugify
+from django.core.files.base import ContentFile
+from factory import (SubFactory, 
+                    post_generation, Faker, LazyAttribute,
+                    lazy_attribute, fuzzy )
+from factory.django import DjangoModelFactory, ImageField
+
+from main_account.models import SocialMediaAccount
+from company.models import Company
+from .models import Coupon, LandingPageBanner, OrderItem, Item, Category, Order
 
 
 user = get_user_model()
@@ -26,9 +31,21 @@ class ItemFactory(DjangoModelFactory):
     
     title = Faker('word')
     price = LazyAttribute(lambda x:random.randrange(50,100))
-
+    status = True
     discount_price = LazyAttribute(lambda x:random.randrange(10,40))
+    image = LazyAttribute(
+            lambda _: ContentFile(
+                ImageField()._make_data(
+                    {'width': 1024, 'height': 768}
+                ), 'example.jpg'
+            )
+        )
     
+
+    @lazy_attribute
+    def slug(self):
+        return slugify(self.title)
+
     @post_generation
     def category(self, create, extracted):
         if not create:
@@ -80,3 +97,39 @@ class OrderFactory(DjangoModelFactory):
             for items in extracted:
                 self.items.add(items)
 
+class SocialMediaAccountFactory(DjangoModelFactory): 
+    class Meta: 
+        model = SocialMediaAccount
+    
+    name = Faker('word')
+    facebook = LazyAttribute(lambda x: 'https://fa-{}.com'.format(x.name))
+    tweeter = LazyAttribute(lambda x: 'https://tw-{}.com'.format(x.name))
+    linkedin = LazyAttribute(lambda x: 'https://li-{}.com'.format(x.name))
+
+
+class CompanyFactory(DjangoModelFactory): 
+    class Meta: 
+        model = Company
+    
+    name = Faker('company')
+    title = fuzzy.FuzzyText(length=15)
+    description = fuzzy.FuzzyText(length=45)
+    social_media = SubFactory(SocialMediaAccountFactory)
+    active = True
+
+    image = LazyAttribute(
+            lambda _: ContentFile(
+                ImageField()._make_data(
+                    {'width': 1024, 'height': 768}
+                ), 'example.jpg'
+            )
+        )
+    
+
+class LandingPageFactory(DjangoModelFactory): 
+    class Meta: 
+        model = LandingPageBanner
+    
+    tag = fuzzy.FuzzyChoice(['BO','FD','LM'])
+    title = fuzzy.FuzzyText(length=15)
+    status = True
