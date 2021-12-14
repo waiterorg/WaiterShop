@@ -23,7 +23,7 @@ class OrderItemTestCase(TestCase):
     @classmethod
     def setUpTestData(cls):
         category = CategoryFactory.create()
-        cls.order_item = OrderItemFactory.create(item__category =(category,))
+        cls.order_item = OrderItemFactory.create(item__category =(category,), item__image = None)
     
     def test_order_item_creation(self):
         self.assertIsInstance(self.order_item, OrderItem)
@@ -65,9 +65,9 @@ class OrderTestCase(TestCase):
     @classmethod
     def setUpTestData(cls):
         global order
-        item1 = OrderItemFactory.create(ordered = False, user__username = 'test_user')
-        item2 = OrderItemFactory.create(ordered = False, user__username = 'test_user2')
-        cls.order = OrderFactory.create(ordered = False, ordered_date = datetime.now(), user__username = 'test1', coupon__code = 'code_test', items=(item1, item2))
+        order_item1 = OrderItemFactory.create(ordered = False, user__username = 'test_user', item__image = None)
+        order_item2 = OrderItemFactory.create(ordered = False, user__username = 'test_user2', item__image = None)
+        cls.order = OrderFactory.create(ordered = False, ordered_date = datetime.now(), user__username = 'test1', coupon__code = 'code_test', items=(order_item1, order_item2))
     
     def test_order_creation(self):
         self.assertIsInstance(self.order, Order)
