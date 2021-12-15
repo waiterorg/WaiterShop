@@ -190,7 +190,7 @@ class Address(models.Model):
     street_address = models.CharField(max_length=100)
     apartment_address = models.CharField(max_length=100)
     country = CountryField(multiple=False)
-    zip = models.CharField(max_length=100)
+    zip = models.IntegerField()
     default = models.BooleanField(default=False)
 
     def __str__(self):
