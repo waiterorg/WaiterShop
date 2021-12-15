@@ -1,10 +1,8 @@
 from django.test import TestCase
-from core.models import Category
-from core.models import Item
-from core.models import LandingPageBanner
+from core.models import Order, Category, Item, LandingPageBanner
 from django.urls import reverse
 from company.models import Company
-from ..factories import CategoryFactory, ItemFactory, CompanyFactory, LandingPageFactory
+from ..factories import CategoryFactory, ItemFactory, CompanyFactory, LandingPageFactory, OrderFactory, OrderItemFactory, UserFactory
 
 class HomeViewTest(TestCase):
     @classmethod
@@ -110,3 +108,38 @@ class SearchListViewTest(TestCase):
         self.assertTrue('is_paginated' in response.context)
         self.assertTrue(response.context['is_paginated'] is True)
         self.assertEqual(len(response.context['object_list']), 3)
+
+class OrderSummaryViewTest(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        # this user has order
+        order_user = UserFactory.create(username = 'user')
+        order_user.set_password('password')
+        order_user.save()
+        # this user has not order
+        none_order_user = UserFactory.create(username = 'user2')
+        none_order_user.set_password('password')
+        none_order_user.save()
+
+        order_item1 = OrderItemFactory.create(ordered = False, user=order_user, item__image = None)
+        OrderFactory.create(ordered = False, user=order_user, items=(order_item1,))
+
+
+    def test_order_summary_view_anonymous_user(self):
+        response = self.client.get(reverse('core:order-summary'))
+        # redirect to login page -> 302 redirect status
+        self.assertEqual(response.status_code, 302)
+
+    def test_order_summary_view_none_order_user(self):
+        self.client.login(username='user2', password='password')
+        response = self.client.get(reverse('core:order-summary'))
+        # redirect to home page becuse user has not order -> 302 redirect status
+        self.assertEqual(response.status_code, 302)
+
+    def test_order_summary_view_order_user(self):
+        self.client.login(username='user', password='password')
+        response = self.client.get(reverse('core:order-summary'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'shop/order_summary.html')
+        self.assertIsInstance(response.context['object'], Order)
+
