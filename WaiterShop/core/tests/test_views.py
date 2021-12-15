@@ -38,7 +38,7 @@ class HomeViewTest(TestCase):
 class ProductListViewTest(TestCase):
     @classmethod
     def setUpTestData(cls):
-        number_of_item = 7
+        number_of_item = 4
         for i in range(number_of_item):
             ItemFactory.create()
 
