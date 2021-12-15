@@ -69,6 +69,44 @@ class ProductListViewTest(TestCase):
         self.assertTrue(response.context['is_paginated'] is True)
         self.assertEqual(len(response.context['object_list']), 3)
 
-    def test_product_list_pagination_returns_404_page_out_of_range(self):
-        response = self.client.get(reverse('core:product-list', kwargs={'page': 999}))
-        self.assertEqual(response.status_code, 404)
+
+class SearchListViewTest(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        number_of_item = 4
+        for item_id in range(number_of_item):
+            ItemFactory.create(title = f"item {item_id}")
+
+    def test_search_list_view_success(self):
+        response = self.client.get(f"{reverse('core:search')}?q='test'")
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'shop/search_list.html') 
+
+    def test_search_list_view_search_context(self):
+        response = self.client.get(f"{reverse('core:search')}?q=test")
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context['search'], 'test')
+
+    def test_search_list_view_object_list_with_item_parameter(self):
+        # when we search 'item' object list should have all items -> per page, 3 item
+        response = self.client.get(f"{reverse('core:search')}?q=item")
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.context['object_list']), 3)
+
+    def test_search_list_view_object_list_with_item_1_parameter(self):
+        # when we search 'item 1' object list should have one item -> item 1 object
+        response = self.client.get(f"{reverse('core:search')}?q=item 1")
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.context['object_list']), 1)
+
+    def test_search_list_view_object_list_with_none_exist_item_parameter(self):
+        response = self.client.get(f"{reverse('core:search')}?q=item 99")
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.context['object_list']), 0)
+
+    def test_product_list_pagination_is_correct(self):
+        response = self.client.get(f"{reverse('core:search')}?q=item")
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue('is_paginated' in response.context)
+        self.assertTrue(response.context['is_paginated'] is True)
+        self.assertEqual(len(response.context['object_list']), 3)
