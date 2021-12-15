@@ -216,7 +216,7 @@ CACHES = {
         "KEY_PREFIX": "waitershop"
     }
 }
-CACHE_TTL = 60 * 2
+CACHE_TTL = 20 * 1
 
 SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 SESSION_CACHE_ALIAS = "default"
