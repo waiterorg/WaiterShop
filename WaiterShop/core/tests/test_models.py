@@ -1,7 +1,6 @@
 from datetime import datetime
 from django.test import TestCase
-from unittest import skip
-from ..models import Category, Order, OrderItem
+from ..models import Category
 from ..factories import CategoryFactory, OrderItemFactory, OrderFactory
 
 
