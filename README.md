@@ -73,7 +73,6 @@ WaiterShop is a simple shop application with RESTAPI, where users can buy produc
 ## Testing Tool
 
 WaiterShop makes use of _Coverage.py_. As taken from their [website](https://coverage.readthedocs.io/en/v4.5.x/), "_Coverage.py is a tool for measuring code coverage of Python programs. It monitors your program, noting which parts of the code have been executed, then analyzes the source to identify code that could have been executed but was not._"
-_Coverage.py_ also provides nice functionality to visualize code coverage.
 <br/><br/>
 
 ## Running Tests
@@ -87,15 +86,11 @@ Obtaining the coverage report in the command line can then be done using:
 Alternatively, the following command can be used to obtain the coverage report in HTML-format:
 `coverage html`.
 
-NB: If an error occurs before the tests are run, then make sure you have created a _/coverage_-folder in the root of the repository. Also make sure you've actually installed the _coverage.py_ package by calling `pip install -r requirements/dev.txt`\
 NB: You'll need to re-run the first command each time you make a change to your source code or test file in order to obtain an up-to-date coverage report.
 <br/><br/>
 
 ## Ignoring Files
-
-In order to exclude files that do not need to be tested (and show up in the coverage report), you'll need to edit _.coveragerc_ in the root of the repository. Even though the file has no extension, it should be in a _.ini_ file format. More information on this configuration file can be accessed online at _coverage.py_'s [website](https://coverage.readthedocs.io/en/v4.5.x/config.html).
-
-NB: Only files with a _.py_ extension are tested by default.
+Only files with a _.py_ extension are tested by default.
 <br/><br/>
 
 # RESTAPI
