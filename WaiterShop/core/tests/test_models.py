@@ -12,15 +12,11 @@ class CategoryTestCase(TestCase):
         cls.category = CategoryFactory.create(title = 'cloths i am windo64%$^')
  
     def test_str(self):
-        """
-            test category instance string
-        """
+        """test category instance string"""
         self.assertEqual(str(self.category), self.category.title)
 
     def test_manager_filter_active_category(self):
-        """
-            test filter active category for category instances with true status
-        """
+        """test filter active category for category instances with true status"""
         self.assertEqual(Category.objects.filter_active_category().count(),
                          Category.objects.filter(status=True).count())
 
