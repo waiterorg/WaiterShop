@@ -79,18 +79,21 @@ class OrderTestCase(TestCase):
         order_item2 = OrderItemFactory.create(ordered = False, user__username = 'test_user2', item__image = None)
         cls.order = OrderFactory.create(ordered = False, ordered_date = datetime.now(), user__username = 'test1', coupon__code = 'code_test', items=(order_item1, order_item2))
     
-    def test_order_creation(self):
-        self.assertIsInstance(self.order, Order)
-    
     def test_str(self):
+        """Order instance string"""
         self.assertEqual(str(self.order), f"{self.order.pk}-{self.order.user.username}")
 
     def test_order_name(self):
+        """Order name method which is primary key - username"""
         actual_order_name = self.order.order_name()
         expected_order_name = f"{self.order.pk}-{self.order.user.username}"
         self.assertEqual(actual_order_name, expected_order_name)
 
     def test_get_total(self):
+        """
+        Final price which is sum of order items , if order had coupon
+        final price equals to final price minus coupon   
+        """
         actual_get_total = self.order.get_total()
         expected_get_total = 0
         for order_item in self.order.items.all():
