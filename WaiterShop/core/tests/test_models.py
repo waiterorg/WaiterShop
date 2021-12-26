@@ -12,11 +12,11 @@ class CategoryTestCase(TestCase):
         cls.category = CategoryFactory.create(title = 'cloths i am windo64%$^')
  
     def test_str(self):
-        """test category instance string"""
+        """category instance string"""
         self.assertEqual(str(self.category), self.category.title)
 
     def test_manager_filter_active_category(self):
-        """test filter active category for category instances with true status"""
+        """filter active category manager for category instances with true status"""
         self.assertEqual(Category.objects.filter_active_category().count(),
                          Category.objects.filter(status=True).count())
 
@@ -27,8 +27,6 @@ class OrderItemTestCase(TestCase):
         category = CategoryFactory.create()
         cls.order_item = OrderItemFactory.create(item__category =(category,), item__image = None)
     
-    def test_order_item_creation(self):
-        self.assertIsInstance(self.order_item, OrderItem)
 
     def test_str(self):
         self.assertEqual(str(self.order_item), f"{self.order_item.quantity} of {self.order_item.item.title}")
