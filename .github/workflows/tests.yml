@@ -24,7 +24,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
       - name: Run Tests
-        run: coverage run manage.py test
+        run: coverage run ./WaiterShop/manage.py test core
       - name: Output Coverage
         run: coverage report && coverage xml
       - name: Upload coverage to CodeCov
