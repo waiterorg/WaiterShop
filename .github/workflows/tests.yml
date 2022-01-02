@@ -33,5 +33,5 @@ jobs:
         with:
           env_vars: OS,PYTHON
           fail_ci_if_error: true
-          files: ./coverage/coverage.xml
+          files: ./coverage.xml
           flags: unittests
