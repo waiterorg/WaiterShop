@@ -1,6 +1,16 @@
 # WaiterShop
 ---
 WaiterShop is a simple shop application with RESTAPI, where users can buy products .
+- [Setup](#Setup)
+- [Running](#Running-the-Application)
+- [Accessing Admin Panel](#Accessing-Admin-Panel)
+- [How buy products](#How-buy-products)
+- [User Stories](#User-Stories)
+- [Features](#Features)
+- [Dependencies](#Dependencies)
+- [What the app looks like](#What-the-app-looks-like)
+- [Testing Tool](#Testing-Tool)
+- [RESTAPI](#RESTAPI)
 
 ## Setup
 
@@ -20,7 +30,7 @@ WaiterShop is a simple shop application with RESTAPI, where users can buy produc
    located_) <br>
    ` python manage.py runserver`
 
-## Accessing the Admin Panel
+## Accessing Admin Panel
 
 1. You can access the admin panel by running the server and opening <http://localhost:8000/admin>
 2. Run `python manage.py createsuperuser` to create a user to access the admin panel.
@@ -75,7 +85,7 @@ WaiterShop is a simple shop application with RESTAPI, where users can buy produc
 WaiterShop makes use of _Coverage.py_. As taken from their [website](https://coverage.readthedocs.io/en/v4.5.x/), "_Coverage.py is a tool for measuring code coverage of Python programs. It monitors your program, noting which parts of the code have been executed, then analyzes the source to identify code that could have been executed but was not._"
 <br/><br/>
 
-## Running Tests
+### Running Tests
 
 Running tests can be done using the following command:
 `coverage run manage.py test`.
@@ -89,7 +99,7 @@ Alternatively, the following command can be used to obtain the coverage report i
 NB: You'll need to re-run the first command each time you make a change to your source code or test file in order to obtain an up-to-date coverage report.
 <br/><br/>
 
-## Ignoring Files
+### Ignoring Files
 Only files with a _.py_ extension are tested by default.
 <br/><br/>
 
