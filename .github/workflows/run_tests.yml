@@ -1,3 +1,4 @@
+
 name: WaiterNews Test
 
 on: [push, pull_request]
@@ -28,4 +29,3 @@ jobs:
         run: coverage run ./WaiterShop/manage.py test core
       - name: Output Coverage
         run: coverage report && coverage xml
-

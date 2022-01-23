@@ -71,6 +71,7 @@ WaiterShop is a simple shop application with RESTAPI, where users can buy produc
   - Python
   - Django
   - SQLite
+  - Redis
   - DRF
   - Django Packages
 
