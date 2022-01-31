@@ -1,5 +1,5 @@
 
-name: WaiterNews Test
+name: WaiterShop Test
 
 on: [push, pull_request]
 
