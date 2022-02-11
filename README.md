@@ -54,7 +54,7 @@ WaiterShop is a simple shop application with RESTAPI, where users can buy produc
 
 ## User Stories
   - A user can rate products if logged in .
-  - A user can have refund request on 'request-refund/' endpoint .
+  - A user can have refund request with bill code on 'request-refund/' endpoint .
   - A user can have coupon for reduce the price .
   - A user can search products on top navigation .
 
